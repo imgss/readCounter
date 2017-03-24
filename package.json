@@ -1,0 +1,25 @@
+{
+  "name": "readcounter",
+  "version": "0.0.1",
+  "description": "博客阅读量统计",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imgss/readCounter.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "imgss",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imgss/readCounter/issues"
+  },
+  "homepage": "https://github.com/imgss/readCounter#readme",
+  "dependencies": {
+    "cheerio": "^0.22.0"
+  }
+}
