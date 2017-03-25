@@ -1,32 +1,20 @@
-var cheerio = require('cheerio'),
-    http = require('http');
-var host = 'http://www.cnblogs.com/imgss/default.html';
-http.get(host + `?page=1`, (res) => {
-    var status = res.statusCode;
-    var html = '';
-    if(status == "200") {
-        res.on('data', (data) => {
-            html += data;
-        });
-        res.on('end', () => {
-            // console.log(html);
-            var $ = cheerio.load(html);
-            countStr = $('.postDesc').text();
-            //console.log(countArr);
-            var re = /阅读\((\d+)\)/g;
-            var arr = [];
-            while(true) {
-                if(!re.exec(countStr))
-                    break;
-                var match = re.exec(countStr)[1];
-                arr.push(+match);
-                console.log(arr);
+var onepage = require('./onepage');
+var onepage = require('./onepage');
+var promiseArr = [],
+    host = 'http://www.cnblogs.com/';
+host += process.argv[2] ? process.argv[2] : 'imgss' + '/';
+for(let i = 1; i < 3; i++) {
+    promiseArr.push(onepage(host, i))
+}
+// onepage(host, 1).then((data) => {
 
-            }
-            //countArr.map((item) => { console.log(item); return item.match(/\([0-9]+\)/)[0] });
-
-
-        })
+//     console.log(data);
+// });
+Promise.all(promiseArr).then(function(data) {
+    let sum = 0;
+    for(d of data) {
+        sum += d;
     }
+    console.log(sum);
 
 })
