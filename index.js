@@ -3,7 +3,7 @@ var onepage = require('./onepage');
 var promiseArr = [],
     host = 'http://www.cnblogs.com/';
 host += process.argv[2] ? process.argv[2] : 'imgss' + '/';
-for(let i = 1; i < 3; i++) {
+for(let i = 1; i < 20; i++) {
     promiseArr.push(onepage(host, i))
 }
 // onepage(host, 1).then((data) => {
