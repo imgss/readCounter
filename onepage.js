@@ -3,7 +3,7 @@ var cheerio = require('cheerio'),
 module.exports = function(root, page) {
     return new Promise(function(resolve, reject) {
         var total = 0;
-        http.get(root + `?page=${page}`, (res) => {
+        http.get(root + `/default.html?page=${page}`, (res) => {
             var status = res.statusCode;
             var html = '';
             if(status == "200") {
@@ -11,10 +11,15 @@ module.exports = function(root, page) {
                     html += data;
                 });
                 res.on('end', () => {
+                    if(!/class=\"day\"/.test(html)) {
+                        console.log(`页面${page}没有内容`);
+                        resolve(0);
+                        return;
+                    }
                     var $ = cheerio.load(html);
                     countStr = $('.postDesc').text();
-                    //console.log(countStr);
-                    //console.log('-----------------------------------------------')
+                    // console.log(countStr);
+                    // console.log('-----------------------------------------------')
                     var re = /阅读\((\d+)\)/g;
                     if(!countStr) {
                         resolve(0);
