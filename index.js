@@ -1,5 +1,4 @@
 var onepage = require('./onepage');
-var onepage = require('./onepage');
 var promiseArr = [],
     host = 'http://www.cnblogs.com/';
 host += process.argv[2] ? process.argv[2] : 'imgss' + '/';
@@ -12,5 +11,4 @@ Promise.all(promiseArr).then(function(data) {
         sum += d;
     }
     console.log(sum);
-
 })
