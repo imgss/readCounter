@@ -14,12 +14,8 @@ http.get(url, (res) => {
             var $ = cheerio.load(html);
             var users = $('td');
             console.log(users.length);
-            var usersInfo = `账号            地址              随笔数              最近更新              积分\n`;
             var usersArr = [];
             users.each(function(i, ele) {
-                if(i > 2990) {
-                    console.log($(ele).find('a').first().text());
-                }
                 var infoArr = [
                     $(ele).find('a').first().text(),
                     $(ele).find('a').first().attr('href'),
@@ -29,7 +25,10 @@ http.get(url, (res) => {
                 usersArr.push(infoArr);
 
             })
-            fs.writeFile(__dirname + '\\data.txt', usersInfo + usersArr.join('\r\n').replace(/,/g, '    '), (e) => { if(e) throw(e) });
+            usersArr.shift(); //去掉非数据项
+            fs.writeFile(__dirname + '\\range.json', JSON.stringify(usersArr), (e) => { if(e) throw(e) });
+            //console.log(usersArr.map((item, index) => { return Number(item[4]) / Number(item[2]) }));
+            //fs.writeFile(__dirname + '\\range.txt', usersInfo + usersArr.join('\n').replace(/,/g, '    '), (e) => { if(e) throw(e) });
 
         })
 
