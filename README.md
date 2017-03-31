@@ -12,4 +12,8 @@
     因为我的博客地址是`https://home.cnblogs.com/u/imgss/`
 
     控制台会输出你博客的总阅读量
-
+### 博客园积分前3000名
+```
+node 3k
+```
+主要是涉及用`cheerio`处理数据，将数据写到[data.text](https://github.com/imgss/readCounter/edit/master/data.txt)中
