@@ -1,6 +1,10 @@
 # readCounter
 博客园 用户blog阅读量计数器
 
+
+### 更新历史
+
+* 3-31 对3000条数据的随笔数进行分析。
 ### 用法：
 
 1. git clone demo 到本地
@@ -16,4 +20,6 @@
 ```
 node 3k
 ```
-主要是涉及用`cheerio`处理数据，将数据写到[data.text](https://github.com/imgss/readCounter/edit/master/data.txt)中
+主要是涉及用`cheerio`处理数据，将数据写到`data.text`中
+
+data.txt可以导入excel中进行分析。
