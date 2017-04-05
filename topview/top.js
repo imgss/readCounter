@@ -3,9 +3,9 @@ var cheerio = require('cheerio'),
     fs = require('fs');
 module.exports = function(user) {
     return new Promise(function(resolve, reject) {
-        var total = 0,
-            user = user.replace(/\b/g, '');
-        url = `http://www.cnblogs.com/mvc/Blog/GetBlogSideBlocks.aspx?blogApp=${user}&showFlag=ShowTopViewPosts%2CShowTopDiggPosts`;
+        var total = 0;
+        let a = user.replace(' ', '');
+        url = `http://www.cnblogs.com/mvc/Blog/GetBlogSideBlocks.aspx?blogApp=${a}&showFlag=ShowTopViewPosts%2CShowTopDiggPosts`;
         http.get(url, (res) => {
             var status = res.statusCode;
             var html = '';
@@ -14,19 +14,18 @@ module.exports = function(user) {
                     html += data;
                 });
                 res.on('end', () => {
-                    console.log(html);
+                    html = JSON.parse(html);
                     fs.appendFile('./html.txt', html, (e) => { console.log('finish') })
-                    console.log(/\"TopViewPostsBlock\"/.test(html))
                         //if(!/id=\"TopViewPostsBlock\"/.test(html)) {
                         //     console.log(`没有阅读排行榜`);
                         //     resolve(0);
                         //     return;
                         // }
-                    var $ = cheerio.load(html);
-                    maxRead = $('div#TopViewPostsBlock li a').html();
-                    console.log(maxRead);
+                    var $ = cheerio.load(html['TopViewPosts']);
+                    maxRead = $('li a').first().text();
                     // console.log('-----------------------------------------------')
                     var re = /\((\d+)\)/g;
+                    maxRead = re.exec(maxRead)[1];
                     if(!maxRead) {
                         resolve(0);
                     }
