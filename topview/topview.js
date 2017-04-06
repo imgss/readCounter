@@ -1,6 +1,6 @@
 var fs = require('fs'),
     top = require('./top'),
-    mapLimit = require('async/mapLimit');
+    map = require('async/map');
 fs.readFile('../range.json', (e, data) => {
     if(e) {
         throw e;
@@ -20,11 +20,18 @@ fs.readFile('../range.json', (e, data) => {
     //         }
     //         console.log(users.slice(0, 10));
     //     })
-    console.log(users.length);
 
-    mapLimit(users, 10, function(user, cb) {
+    map(users, function(user, cb) {
             top(user).then(function(data) {
                 console.log(data);
+                fs.appendFile('./topview.json', JSON.stringify(data), function(err) {
+                    throw(err);
+                })
+            }, function(data) {
+                fs.appendFile('./topview.json', JSON.stringify(data), function(err) {
+                    throw(err);
+                })
+
             });
 
         },
