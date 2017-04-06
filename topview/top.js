@@ -14,23 +14,32 @@ module.exports = function(user) {
                     html += data;
                 });
                 res.on('end', () => {
-                    html = JSON.parse(html);
-                    fs.appendFile('./html.txt', html, (e) => { console.log('finish') })
-                        //if(!/id=\"TopViewPostsBlock\"/.test(html)) {
-                        //     console.log(`没有阅读排行榜`);
-                        //     resolve(0);
-                        //     return;
-                        // }
+                    try {
+                        html = JSON.parse(html);
+                    } catch(err) {
+                        return false;
+                    }
+                    //fs.appendFile('./html.txt', html, (e) => { console.log('finish') })
+                    //if(!/id=\"TopViewPostsBlock\"/.test(html)) {
+                    //     console.log(`没有阅读排行榜`);
+                    //     resolve(0);
+                    //     return;
+                    // }
                     var $ = cheerio.load(html['TopViewPosts']);
                     maxRead = $('li a').first().text();
                     // console.log('-----------------------------------------------')
                     var re = /\((\d+)\)/g;
-                    maxRead = re.exec(maxRead)[1];
-                    if(!maxRead) {
-                        resolve(0);
+                    try {
+                        maxRead = re.exec(maxRead)[1];
+                        if(!maxRead) {
+                            resolve(0);
+                        }
+                        console.log(`用户最大阅读量--`, maxRead);
+                        resolve(maxRead);
+                    } catch(err) {
+                        reject();
                     }
-                    console.log(`用户最大阅读量--`, maxRead);
-                    resolve(maxRead);
+
                 })
             }
         })
