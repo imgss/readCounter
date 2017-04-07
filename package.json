@@ -21,6 +21,7 @@
   "homepage": "https://github.com/imgss/readCounter#readme",
   "dependencies": {
     "async": "^2.3.0",
-    "cheerio": "^0.22.0"
+    "cheerio": "^0.22.0",
+    "co": "^4.6.0"
   }
 }

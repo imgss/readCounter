@@ -37,7 +37,7 @@ module.exports = function(user) {
                         //console.log(`用户最大阅读量--`, maxRead);
                         resolve({ user: user, read: maxRead });
                     } catch(err) {
-                        reject({ user: user, read: null });
+                        resolve({ user: user, read: null });
                     }
 
                 })
