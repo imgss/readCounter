@@ -1,6 +1,5 @@
 var fs = require('fs'),
-    top = require('./top'),
-    mapLimit = require('async/mapLimit');
+    top = require('./top');
 fs.readFile('../realname.json', (e, data) => {
     if(e) {
         throw e;
