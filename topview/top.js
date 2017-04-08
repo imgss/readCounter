@@ -32,16 +32,20 @@ module.exports = function(user) {
                     try {
                         maxRead = re.exec(maxRead)[1];
                         if(!maxRead) {
+                            console.log(read, 0)
                             resolve({ user: user, read: 0 });
                         }
-                        //console.log(`用户最大阅读量--`, maxRead);
+                        console.log(`用户最大阅读量--`, maxRead);
                         resolve({ user: user, read: maxRead });
                     } catch(err) {
                         resolve({ user: user, read: null });
                     }
 
                 })
+            } else {
+                resolve({ user: user, read: null });
             }
+
         })
     })
 }

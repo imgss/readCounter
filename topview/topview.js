@@ -42,20 +42,25 @@ fs.readFile('../range.json', (e, data) => {
             })
         }
     )*/
-    require('co')(function*(users) {
-        console.log(users);
+    async function topUsers(users) {
         while(users.length > 0) {
+            console.log(users.length);
             var user5 = [];
             for(let i = 0; i < 5; i++) {
                 user5.push(users.shift());
             }
+            console.log(user5);
             var promiseArr = user5.map(function(user) {
                 return top(user);
             });
-            let data = yield Promise.all(promiseArr, function(data) {
+            console.log(promiseArr);
+            let data = await Promise.all(promiseArr, function(data) {
+                console.log(data);
                 Promise.resolve(data);
             });
             console.log(data);
         }
-    }(users));
+    };
+
+    topUsers(users);
 })
