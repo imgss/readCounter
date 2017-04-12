@@ -5,33 +5,15 @@ fs.readFile('../realname.json', (err, data) => {
         throw(err);
         return false;
     }
-    let dat = JSON.parse(data);
-    var users = dat.map(function(data) { return data[1] });
-    let top10 = users.slice(0, 10);
+    let dat = JSON.parse(data),
+        users = dat.map(function(data) { return data[1] }),
+        top10 = users.slice(0, 10);
 
-    var reads = [],
+    let reads = [],
         counter = 0;
-    /** 
-    mapLimit(users, 5, function(user, cb) {
-            top(user).then(function(data) {
 
-                console.log(data);
-                reads.push(data);
-                cb(null, data);
-            }, function(data) {
-                reads.push(data);
-                cb(null, data);
-
-            });
-        },
-        function(err, results) {
-            console.log(results);
-            fs.appendFile('./topview.json', JSON.stringify(results), function(err) {
-                throw(err);
-            })
-        }
-    )*/
     async function topUsers(users) {
+        console.time('start');
         while(users.length > 0) {
             console.log(users.length);
             var user5 = [];
@@ -49,11 +31,12 @@ fs.readFile('../realname.json', (err, data) => {
             });
             reads.push(data);
         }
-        fs.appendFile('./maxRead.json', JSON.stringify(reads), (err) => {
+        fs.appendFile('./maxRead2.json', JSON.stringify(reads), (err) => {
             if(err) {
                 throw err;
             }
         })
+        console.timeEnd('start');
     };
 
     topUsers(users);

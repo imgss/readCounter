@@ -24,20 +24,19 @@ module.exports = function(user) {
 
                     let $ = cheerio.load(html['TopViewPosts']);
                     let maxRead = $('li a').first().text(),
+                        maxReadUrl = $('li a').first().attr('href'),
                         maxReadNo = 0;
                     console.log(maxRead);
 
-                    var re = /\((\d+)\)/g;
+                    //var re = /\((\d+)\)/g;
                     try {
-                        maxReadNo = re.exec(maxRead)[1];
+                        //maxReadNo = re.exec(maxRead)[1];
                         if(!maxRead) {
-                            console.log(read, 0)
-                            resolve({ user, maxReadNo });
+                            resolve({ user });
                         }
-                        console.log(`用户最大阅读量--`, maxReadNo);
-                        resolve({ user, article: maxRead, maxReadNo });
+                        resolve({ user, article: maxRead, maxReadUrl });
                     } catch(err) {
-                        resolve({ user, article: null, maxReadNo });
+                        resolve({ user, article: null });
                     }
 
                 })
