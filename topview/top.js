@@ -3,13 +3,13 @@ var cheerio = require('cheerio'),
     fs = require('fs');
 module.exports = function(user) {
     return new Promise(function(resolve, reject) {
-        var total = 0;
-        let a = user.replace(' ', '');
-        url = `http://www.cnblogs.com/mvc/Blog/GetBlogSideBlocks.aspx?blogApp=${a}&showFlag=ShowTopViewPosts%2CShowTopDiggPosts`;
+
+        let url = `http://www.cnblogs.com/mvc/Blog/GetBlogSideBlocks.aspx?blogApp=${user}&showFlag=ShowTopViewPosts%2CShowTopDiggPosts`;
         http.get(url, (res) => {
             var status = res.statusCode;
-            var html = '';
+
             if(status == "200") {
+                let html = '';
                 res.on('data', (data) => {
                     html += data;
                 });
@@ -17,33 +17,32 @@ module.exports = function(user) {
                     try {
                         html = JSON.parse(html);
                     } catch(err) {
+                        throw(err);
+
                         return false;
                     }
-                    //fs.appendFile('./html.txt', html, (e) => { console.log('finish') })
-                    //if(!/id=\"TopViewPostsBlock\"/.test(html)) {
-                    //     console.log(`没有阅读排行榜`);
-                    //     resolve(0);
-                    //     return;
-                    // }
-                    var $ = cheerio.load(html['TopViewPosts']);
-                    maxRead = $('li a').first().text();
-                    // console.log('-----------------------------------------------')
+
+                    let $ = cheerio.load(html['TopViewPosts']);
+                    let maxRead = $('li a').first().text(),
+                        maxReadNo = 0;
+                    console.log(maxRead);
+
                     var re = /\((\d+)\)/g;
                     try {
-                        maxRead = re.exec(maxRead)[1];
+                        maxReadNo = re.exec(maxRead)[1];
                         if(!maxRead) {
                             console.log(read, 0)
-                            resolve({ user: user, read: 0 });
+                            resolve({ user, maxReadNo });
                         }
-                        console.log(`用户最大阅读量--`, maxRead);
-                        resolve({ user: user, read: maxRead });
+                        console.log(`用户最大阅读量--`, maxReadNo);
+                        resolve({ user, article: maxRead, maxReadNo });
                     } catch(err) {
-                        resolve({ user: user, read: null });
+                        resolve({ user, article: null, maxReadNo });
                     }
 
                 })
             } else {
-                resolve({ user: user, read: null });
+                resolve({ user, article: null, maxReadNo });
             }
 
         })

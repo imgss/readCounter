@@ -1,24 +1,14 @@
 var fs = require('fs'),
     top = require('./top');
-fs.readFile('../realname.json', (e, data) => {
-    if(e) {
-        throw e;
+fs.readFile('../realname.json', (err, data) => {
+    if(err) {
+        throw(err);
         return false;
     }
     let dat = JSON.parse(data);
     var users = dat.map(function(data) { return data[1] });
     let top10 = users.slice(0, 10);
-    //     let promiseArr = [];
-    //     for(let user of top10) {
-    //         promiseArr.push(top(user));
-    //     }
-    //     Promise.all(promiseArr).then(function(data) {
-    //         for(var i = 0; i < data.length; i++) {
-    //             let length = users[i].length
-    //             users[i][length] = data[i];
-    //         }
-    //         console.log(users.slice(0, 10));
-    //     })
+
     var reads = [],
         counter = 0;
     /** 
@@ -54,6 +44,8 @@ fs.readFile('../realname.json', (e, data) => {
             let data = await Promise.all(promiseArr, function(data) {
                 console.log(data);
                 Promise.resolve(data);
+            }, function(err) {
+                console.log('err');
             });
             reads.push(data);
         }
