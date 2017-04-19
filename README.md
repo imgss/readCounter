@@ -32,3 +32,5 @@ cd topview
 node topview
 ```
 抓取前3000名用户的最大阅读量的文章.
+
+抓取结果:[这里](https://imgss.github.io/demo/maxRead/index.html)
