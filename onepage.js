@@ -13,7 +13,7 @@ module.exports = function(root, page) {
                 res.on('end', () => {
                     if(!/class=\"day\"/.test(html)) {
                         console.log(`页面${page}没有内容`);
-                        resolve(0);
+                        resolve(null);
                         return;
                     }
                     var $ = cheerio.load(html);
