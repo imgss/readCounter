@@ -1,5 +1,5 @@
-var cheerio = require('cheerio'),
-    http = require('http');
+const cheerio = require('cheerio'),
+        http = require('http');
 module.exports = function(root, page) {
     return new Promise(function(resolve, reject) {
         var total = 0;

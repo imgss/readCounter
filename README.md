@@ -17,6 +17,8 @@
     如：`node index imgss`,
     因为我的博客地址是`https://home.cnblogs.com/u/imgss/`
     控制台会输出你博客的总阅读量
+    
+![效果](http://images2015.cnblogs.com/blog/1016471/201704/1016471-20170419211236556-1067662246.gif)
 
 ### 博客园积分前3000名
 ```
@@ -32,3 +34,5 @@ cd topview
 node topview
 ```
 抓取前3000名用户的最大阅读量的文章.
+
+抓取结果:[这里](https://imgss.github.io/demo/maxRead/index.html)

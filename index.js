@@ -1,3 +1,4 @@
+
 var onepage = require('./onepage');
 var promiseArr = [],
     host = 'http://www.cnblogs.com/';
