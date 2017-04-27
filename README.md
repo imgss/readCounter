@@ -28,11 +28,18 @@ node 3k
 
 data.txt可以导入excel中进行分析。
 
-```(bash)
-cd topview
+### 最大阅读量
 
+```(bash)
 node topview
 ```
 抓取前3000名用户的最大阅读量的文章.
 
+### 抓取园龄
+```
+node yuanAge
+```
+获取用户的园龄
+
+....
 抓取结果:[这里](https://imgss.github.io/demo/maxRead/index.html)

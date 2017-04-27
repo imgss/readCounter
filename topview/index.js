@@ -1,6 +1,6 @@
 var fs = require('fs'),
     top = require('./top');
-fs.readFile('../realname.json', (err, data) => {
+fs.readFile('./realname.json', (err, data) => {
     if(err) {
         throw(err);
         return false;
