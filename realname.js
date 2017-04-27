@@ -1,6 +1,9 @@
-var fs = require('fs');
-
-fs.readFile('./range.json', 'utf-8', (err, data) => {
+const fs = require('fs'),
+      path = require('path');
+fs.readFile(path.join(__dirname,'range/range.json'), 'utf-8', (err, data) => {
+    if(err){
+        throw err;
+    }
     var arr = JSON.parse(data);
     var realnames = [];
 
@@ -12,5 +15,6 @@ fs.readFile('./range.json', 'utf-8', (err, data) => {
         if(err) {
             throw err;
         }
+        console.log("done");
     }
 })
