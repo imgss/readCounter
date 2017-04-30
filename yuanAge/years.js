@@ -17,9 +17,11 @@ module.exports = function(user='imgss') {
                         return;
                     }
                     var $ = cheerio.load(html);
+                    //这里抓取园龄和follower
                     var age = $('#user_profile>li:nth-child(2)>span:nth-child(2)').text();
-                    console.log(age);
-                    resolve({user,age});
+                    var follower = $('#follower_count').text();
+                    //console.log(follower);
+                    resolve ({user,age,follower});
                 })
             }
         })

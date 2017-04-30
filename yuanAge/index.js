@@ -1,5 +1,6 @@
-var fs = require('fs'),
-    getYear = require('./years');
+const fs = require('fs'),
+      getYear = require('./years');
+
 fs.readFile('./realname.json', (err, data) => {
     if(err) {
         throw(err);
@@ -30,7 +31,8 @@ fs.readFile('./realname.json', (err, data) => {
             });
             reads.push(data);
         }
-        fs.appendFile('./years.json', JSON.stringify(reads), (err) => {
+
+        fs.appendFile(__dirname+'/years.json', reads, err => {
             if(err) {
                 throw err;
             }

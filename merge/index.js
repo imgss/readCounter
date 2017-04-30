@@ -11,12 +11,13 @@ fs.readFile('topview/maxread3.json','utf-8',(err,maxRead) =>{
         let obj={}
         years=JSON.parse(years);
         years.forEach(item =>{
-            obj[item.user] = item.age;
+            obj[item.user] = {age:item.age,follower:item.follower};
         });
-
-        let result=maxRead.map(item =>{
-        //console.log(item.user,obj[item.user])            
-            item.age=obj[item.user]
+        let result = maxRead.map(item =>{ 
+            if(obj[item.user]){
+                item.age = obj[item.user].age;
+                item.follower = obj[item.user].follower;
+            }    
             return item;
         })
         fs.appendFile('merge/merge.json' ,JSON.stringify(result),err => {
