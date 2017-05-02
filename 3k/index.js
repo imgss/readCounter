@@ -1,7 +1,6 @@
-var
-    cheerio = require('cheerio'),
-    http = require('http'),
-    fs = require("fs");
+const    cheerio = require('cheerio'),
+        http = require('http'),
+        fs = require("fs");
 var url = "http://www.cnblogs.com/AllBloggers.aspx";
 
 http.get(url, (res) => {
@@ -29,10 +28,9 @@ http.get(url, (res) => {
                 usersArr.push(infoArr);
 
             })
-            fs.writeFile(__dirname + '\\data.txt', usersInfo + usersArr.join('\r\n').replace(/,/g, '    '), (e) => { if(e) throw(e) });
+            fs.writeFile(__dirname + '/data.txt', usersInfo + usersArr.join('\r\n').replace(/,/g, '    '), (e) => { if(e) throw(e) });
+            fs.writeFile(__dirname + '/data.json',  JSON.stringify(usersArr), (e) => { if(e) throw(e) });
 
         })
-
-
     }
 })

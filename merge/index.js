@@ -20,7 +20,7 @@ fs.readFile('topview/maxread3.json','utf-8',(err,maxRead) =>{
             }    
             return item;
         })
-        fs.appendFile('merge/merge.json' ,JSON.stringify(result),err => {
+        fs.writeFile('merge/merge.json' ,JSON.stringify(result),err => {
             if(err){
                 console.log(err);
             }
