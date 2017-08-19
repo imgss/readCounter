@@ -1,7 +1,7 @@
 
-var onepage = require('./onepage');
-var promiseArr = [],
-    host = 'http://www.cnblogs.com/';
+const onepage = require('./onepage');
+const fs = require('fs');
+var host = 'http://www.cnblogs.com/';
 host += process.argv[2] ? process.argv[2] : 'imgss' + '/';
 //改为异步函数写法。
 /**promise 
@@ -27,4 +27,12 @@ while(true){
     }
 }
 console.log('总阅读量:',sum);
+let data = fs.readFileSync('data/total.json', 'utf-8'),
+    today = (new Date()).toLocaleString().split(' ')[0];
+
+data = JSON.parse(data);
+data[today] = {
+    total: sum
+}
+    fs.writeFileSync('data/total.json', JSON.stringify(data, null, 2), 'utf-8');
 })();
