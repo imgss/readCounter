@@ -44,5 +44,6 @@ node yuanAge
     如：`node index imgss`,
     因为我的博客地址是`https://home.cnblogs.com/u/imgss/`
     控制台会输出你博客的总阅读量
+    访问localhost:8080获取一周阅读量
     
 ![效果](http://images2015.cnblogs.com/blog/1016471/201704/1016471-20170419211236556-1067662246.gif)
