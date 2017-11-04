@@ -18,21 +18,35 @@ Promise.all(promiseArr).then(function(data) {
 */
 let i=1,sum=0;
 (async function getAll(){
-while(true){
-    let num= await onepage(host , i++);
-    if(num){
-    sum += num;  
-    }else{
-        break;
+    while(true){
+        let num= await onepage(host , i++);
+        if(num){
+        sum += num;  
+        }else{
+            break;
+        }
     }
-}
-console.log('总阅读量:',sum);
-let data = fs.readFileSync('data/total.json', 'utf-8'),
-    today = (new Date()).toLocaleString().split(' ')[0];
+    console.log('总阅读量:',sum);
+    let data = fs.readFileSync('data/total.json', 'utf-8'),
+        today = (new Date()).toLocaleString().split(' ')[0];
 
-data = JSON.parse(data);
-data[today] = {
-    total: sum
-}
+    data = JSON.parse(data);
+    data[today] = {
+        total: sum
+    }
     fs.writeFileSync('data/total.json', JSON.stringify(data, null, 2), 'utf-8');
+    const c = require('child_process');
+    c.exec('http-server ./data',(err,stdout,stderr)=>{
+        if(err){
+            throw (err)
+        }
+        if(stderr){
+            console.log(stderr)
+            throw new Error('服务器启动出错')
+        }
+        console.log(stdout)
+        console.log('访问 http://localhost:8080')
+        require('child_process').exec('start http://localhost:8080');
+    });//起一个静态服务器
+
 })();
