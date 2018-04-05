@@ -1,6 +1,7 @@
 
 const onepage = require('./onepage');
 const fs = require('fs');
+const serve = require('serve');
 var host = 'http://www.cnblogs.com/';
 host += process.argv[2] ? process.argv[2] : 'imgss' + '/';
 //改为异步函数写法。
@@ -35,18 +36,8 @@ let i=1,sum=0;
         total: sum
     }
     fs.writeFileSync('data/total.json', JSON.stringify(data, null, 2), 'utf-8');
-    const c = require('child_process');
-    c.exec('http-server ./data',(err,stdout,stderr)=>{
-        if(err){
-            throw (err)
-        }
-        if(stderr){
-            console.log(stderr)
-            throw new Error('服务器启动出错')
-        }
-        console.log(stdout)
-        console.log('访问 http://localhost:8080')
-        require('child_process').exec('start http://localhost:8080');
-    });//起一个静态服务器
+    serve('./data',{
+        port: '8088'
+    });
 
 })();

@@ -21,6 +21,7 @@
   "homepage": "https://github.com/imgss/readCounter#readme",
   "dependencies": {
     "cheerio": "^0.22.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "serve": "^6.5.3"
   }
 }
