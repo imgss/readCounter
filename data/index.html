@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://unpkg.com/frappe-charts@0.0.1/dist/frappe-charts.min.js"></script>
+    </head>
+    <body>
+        <div id="chart"></div>
+        <div id="week-chart"></div>
+        <script>
+        fetch('./total.json',{}).then(res => {
+            return res.json();
+        }).then(data => {
+            console.log(data)
+            let days = Object.keys(data);
+            let reads = Object.values(data);
+            let chartData = {
+                labels:days,
+                datasets:[{
+                    "title": "阅读量",
+		            "color": "orange",
+                    values:reads.map(i => i.total)
+                }]
+            }
+            console.log(chartData)
+            const chart = new Chart({
+                parent: '#chart',
+                title: "阅读量",
+                data: chartData,
+                type: 'bar', // or 'line', 'scatter', 'percentage'
+                height: 250
+            })
+            let weekChartData = {
+                labels:days.slice(reads.length-7,reads.length),
+                datasets:[{
+                    "title": "阅读量",
+		            "color": "green",
+                    values:reads
+                            .slice(reads.length-8,reads.length)
+                            .map((i,index,arr) => index === 0 ? 0 : arr[index].total - arr[index-1].total).slice(1)
+                }]
+            }
+            const weekChart = new Chart({
+                parent: '#week-chart',
+                title: "新增阅读量",
+                data: weekChartData,
+                type: 'bar', // or 'line', 'scatter', 'percentage'
+                height: 250
+            })
+        })
+        </script>
+    </body>
+</html>
