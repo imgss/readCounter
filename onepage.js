@@ -1,12 +1,12 @@
 const cheerio = require('cheerio'),
-        http = require('http');
+        https = require('https');
 module.exports = function(root, page) {
     return new Promise(function(resolve, reject) {
         var total = 0;
-        http.get(root + `/default.html?page=${page}`, (res) => {
+        https.get(root + `/default.html?page=${page}`, (res) => {
             var status = res.statusCode;
             var html = '';
-            if(status == "200") {
+            if (status == "200") {
                 res.on('data', (data) => {
                     html += data;
                 });
@@ -37,6 +37,8 @@ module.exports = function(root, page) {
                     console.log(`page${page}的阅读量是`, total);
                     resolve(total);
                 })
+            } else {
+                console.log('http error: ', res.statusCode);
             }
         })
     })
